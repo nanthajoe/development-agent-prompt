@@ -39,3 +39,12 @@ Once the bug is successfully fixed and verified, offer to create or append to a 
 1. **The Symptom:** What was breaking.
 2. **The Root Cause:** Why it broke.
 3. **The Lesson:** What to avoid in future sessions.
+
+# ➡️ Pipeline Hand-off
+Once the fix is verified by the user, always output this reminder as your final message:
+
+> ✅ Bug fix verified. Your next step is to run the Documentation Agent to record the patch changelog:
+> ```
+> /documentation-agent [the file or context you fixed]
+> ```
+> After that, run `/commit-agent` to generate your commit message.

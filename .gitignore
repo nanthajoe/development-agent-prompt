@@ -1,0 +1,62 @@
+# ─────────────────────────────────────────────
+# Project: Agentic Assembly Line (AAL)
+# ─────────────────────────────────────────────
+
+# Docs folder (changelogs, plans — local tracking only)
+docs/
+
+# ─────────────────────────────────────────────
+# macOS
+# ─────────────────────────────────────────────
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+.Spotlight-V100
+.Trashes
+
+# ─────────────────────────────────────────────
+# Windows
+# ─────────────────────────────────────────────
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+
+# ─────────────────────────────────────────────
+# Linux
+# ─────────────────────────────────────────────
+*~
+.fuse_hidden*
+.nfs*
+
+# ─────────────────────────────────────────────
+# VS Code
+# ─────────────────────────────────────────────
+.vscode/
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+*.code-workspace
+
+# ─────────────────────────────────────────────
+# JetBrains IDEs (auto-detected)
+# ─────────────────────────────────────────────
+.idea/
+*.iml
+*.iws
+*.ipr
+out/
+.idea_modules/
+
+# ─────────────────────────────────────────────
+# Environment & Secrets
+# ─────────────────────────────────────────────
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.cert
+secrets/

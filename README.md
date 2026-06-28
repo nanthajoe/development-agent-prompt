@@ -9,11 +9,11 @@ By separating file modification from command execution, this framework eliminate
 
 ## 📦 Choose Your IDE
 
-| IDE | Folder | Invocation Style |
-| :--- | :--- | :--- |
-| 🪐 **Antigravity IDE** | [`antigravity/`](./antigravity/) | `/Planning Agent "..."` slash commands |
-| 🐙 **GitHub Copilot** | [`github-copilot/`](./github-copilot/) | `@Planning Agent "..."` in Copilot Chat |
-| 🟣 **Claude Code** | [`claude-code/`](./claude-code/) | `/planning-agent "..."` slash commands in terminal |
+| IDE | Folder | Invocation Style | Status |
+| :--- | :--- | :--- | :--- |
+| 🪐 **Antigravity IDE** | [`antigravity/`](./antigravity/) | `/Planning Agent "..."` slash commands | ✅ Tested |
+| 🐙 **GitHub Copilot** | [`github-copilot/`](./github-copilot/) | `@Planning Agent "..."` in Copilot Chat | ⚠️ Untested |
+| 🟣 **Claude Code** | [`claude-code/`](./claude-code/) | `/planning-agent "..."` slash commands in terminal | ⚠️ Untested |
 
 Each folder is a self-contained implementation of the same pipeline, adapted to the native agent format of its respective platform.
 
@@ -21,15 +21,18 @@ Each folder is a self-contained implementation of the same pipeline, adapted to 
 
 ## 🛠️ The Core Agent Assembly Line
 
-The same 5-agent pipeline is implemented across all three platforms:
+The same 7-agent pipeline is implemented across all three platforms:
 
 ```mermaid
 flowchart TD
     A(["👤 User Request"])
 
-    A --> B
+    A --> AA
 
-    B["🗺️ **1. Planning Agent**\nCreates docs/plans/v0.0 - ..."]
+    AA["💬 **0. Discussion Agent**\nCaptures requirements in docs/discussions/"]
+    AA --> B
+
+    B["🗺️ **1. Planning Agent**\nCreates docs/plans/v0.1 - ..."]
     B --> C
 
     C["⚙️ **2. Implementation Agent**\nModifies code files ONLY\n_(Sandbox: No execution)_"]
@@ -47,6 +50,7 @@ flowchart TD
     G["✅ **5. Commit Agent**\nRecommends Conventional Commits"]
 
     style A fill:#6366f1,color:#fff,stroke:none
+    style AA fill:#06b6d4,color:#fff,stroke:none
     style B fill:#0ea5e9,color:#fff,stroke:none
     style C fill:#0ea5e9,color:#fff,stroke:none
     style D fill:#64748b,color:#fff,stroke:none
@@ -57,24 +61,29 @@ flowchart TD
 
 | Agent | Role | Boundary |
 | :--- | :--- | :--- |
-| **1. Planning Agent** | Translates discussions into structured `docs/plans/` blueprints | Forbidden from altering source code |
-| **2. Implementation Agent** | Writes production code based strictly on the plan | Forbidden from executing terminal commands |
-| **3. Bug Fixing Agent** | Diagnoses and surgically fixes logical bugs | Forbidden from editing without explicit user approval |
-| **4. Documentation Agent** | Creates timestamped changelog fragments in `docs/changelogs/` | Forbidden from altering application logic |
-| **5. Commit Agent** | Recommends Conventional Commit messages | Read-only; cannot commit or push automatically |
+| **0. .gitignore Agent** | Audits or generates a project-aware `.gitignore` offline | Read-only; never writes to `.gitignore` directly |
+| **1. Discussion Agent** | Clarifies requirements and saves structured `docs/discussions/` docs | Forbidden from writing code or plan files |
+| **2. Planning Agent** | Translates discussions into structured `docs/plans/` blueprints | Forbidden from altering source code |
+| **3. Implementation Agent** | Writes production code based strictly on the plan | Forbidden from executing terminal commands |
+| **4. Bug Fixing Agent** | Diagnoses and surgically fixes logical bugs | Forbidden from editing without explicit user approval |
+| **5. Documentation Agent** | Creates timestamped changelog fragments in `docs/changelogs/` | Forbidden from altering application logic |
+| **6. Commit Agent** | Recommends Conventional Commit messages | Read-only; cannot commit or push automatically |
 
 ---
 
 ## 🔄 Platform Comparison
 
-| Feature | 🪐 Antigravity | 🐙 GitHub Copilot | 🟣 Claude Code |
+| Feature | 🪐 Antigravity | 🐙 GitHub Copilot ⚠️ | 🟣 Claude Code ⚠️ |
 | :--- | :--- | :--- | :--- |
+| **Status** | ✅ Tested | ⚠️ Untested | ⚠️ Untested |
 | **Agent format** | `SKILL.md` with YAML frontmatter | `.agent.md` with YAML frontmatter | `.md` slash commands |
-| **Invocation** | `/Planning Agent "..."` | `@Planning Agent "..."` | `/planning-agent "..."` |
-| **File location** | `.agents/skills/` | `github-copilot/` | `.claude/commands/` |
+| **Invocation** | `/Discussion Agent topic: "..."` | `@Discussion Agent topic: "..."` | `/discussion-agent "..."` |
+| **File location** | `.agents/workflows/` | `github-copilot/` | `.claude/commands/` |
 | **Bash access** | ❌ Sandboxed | ❌ None | ✅ Read-only only |
 | **Auto timestamp** | ❌ Manual | ❌ Manual | ✅ Via `date` Bash command |
 | **Tool restriction** | Via `tools:` frontmatter | Via `# tools:` frontmatter (commented) | Via `allowed-tools:` frontmatter |
+
+> ⚠️ **Note:** The **GitHub Copilot** and **Claude Code** implementations have been authored following each platform's documented agent format but have **not yet been tested in a live project**. The agent prompts are structurally complete and ready to use — feedback and real-world validation are welcome.
 
 ---
 
@@ -85,10 +94,12 @@ After setting up the pipeline for your chosen IDE, your project should include:
 ```
 your-project/
 ├── docs/
+│   ├── discussions/       ← Requirements Q&A (Discussion Agent output)
+│   │   └── 20260628-1100 - feature-name.md
 │   ├── plans/             ← Engineering blueprints (Planning Agent output)
-│   │   └── v0.0 - feature name.md
+│   │   └── v0.1 - feature-name.md
 │   └── changelogs/        ← Timestamped release fragments (Documentation Agent output)
-│       └── 20260627-1030 - v0.0 - implementation - feature name.md
+│       └── 20260628-1120 - v0.1 - implementation - feature-name.md
 ├── .env.example           ← Auto-aligned by Documentation Agent
 └── src/                   ← Your application source code
 ```

@@ -42,3 +42,12 @@ Once the bug is successfully fixed and verified by the user, offer to create or 
 1. **The Symptom:** What was breaking.
 2. **The Root Cause:** Why it broke (e.g., "Edge case where array was empty").
 3. **The Lesson:** What to avoid in future coding sessions to prevent this bug from returning.
+
+# ➡️ Pipeline Hand-off
+Once the fix is verified by the user, always output this reminder as your final message:
+
+> ✅ Bug fix verified. Your next step is to run the Documentation Agent to record the patch changelog:
+> ```
+> /Documentation Agent input_path: "[the file or context you fixed]"
+> ```
+> After that, run `/Commit Agent` to generate your commit message.
