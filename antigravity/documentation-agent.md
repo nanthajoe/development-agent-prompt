@@ -28,6 +28,9 @@ The filename MUST follow this template exactly:
 `[YYYYMMDD-HHMM] - [Version/Phase] - [Type] - [Description].md`
 
 - **Date Prefix:** Get the current system date and time formatted strictly as `YYYYMMDD-HHMM`.
+  1. Check your system prompt metadata (e.g. `<ADDITIONAL_METADATA>` in Antigravity) for the current date/time.
+  2. If absent, scan the `docs/discussions/` or `docs/changelogs/` directory and find the latest file. Extract its `YYYYMMDD-HHMM` timestamp from the filename and use it as your baseline date/time.
+  3. If you cannot find any timestamp, ask the user in chat: *"Please provide the current timestamp (YYYYMMDD-HHMM)."*
 - **Type Differentiation:**
   - If the input file is an architectural implementation plan: Type is `implementation` (e.g., `20260626-2130 - v0.0 - implementation - jwt authentication.md`).
   - If the input file is a bug log/diagnostic patch: Type is `patch` (e.g., `20260626-2145 - v0.0 - patch - login session timeout.md`).

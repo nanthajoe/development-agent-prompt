@@ -25,10 +25,13 @@ You must ALWAYS create a new, individual changelog file inside the `docs/changel
 ### File Naming Architecture
 `[YYYYMMDD-HHMM] - [Version/Phase] - [Type] - [Description].md`
 
-- **Date Prefix:** Use Bash to get the real timestamp:
-  ```bash
-  date +"%Y%m%d-%H%M"
-  ```
+- **Date Prefix:** Get the current date and time formatted strictly as `YYYYMMDD-HHMM`.
+  1. Try to use Bash to get the real timestamp:
+     ```bash
+     date +"%Y%m%d-%H%M"
+     ```
+  2. If the Bash command fails or is not executed, scan the `docs/discussions/` or `docs/changelogs/` directory and find the latest file. Extract its `YYYYMMDD-HHMM` timestamp from the filename and use it as your baseline date/time.
+  3. If you cannot find any timestamp, ask the user in chat: *"Please provide the current timestamp (YYYYMMDD-HHMM)."*
 - **Type Differentiation:**
   - If the input file is an architectural implementation plan → Type is `implementation`
     *(e.g., `20260626-2130 - v0.0 - implementation - jwt authentication.md`)*
