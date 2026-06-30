@@ -152,6 +152,8 @@ With features implemented and verified, run the **Documentation Agent** to captu
 `docs/changelogs/[YYYYMMDD-HHMM] - vX.X - [implementation/patch] - [description].md`
 * It will automatically align environment variations inside your root `.env.example`.
 
+> 💡 The Documentation Agent automatically resolves the timestamp using context metadata, falls back to scanning the workspace (recent discussion/changelog filenames) for today's date, or prompts you in the chat if it cannot find it—no manual timestamp calculation required.
+
 ---
 
 ### ⬛ Step 6: Finalizing with the Commit Agent

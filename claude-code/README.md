@@ -155,7 +155,7 @@ With features implemented and verified, run the **Documentation Agent** to captu
 `docs/changelogs/[YYYYMMDD-HHMM] - vX.X - [implementation/patch] - [description].md`
 * It will automatically align environment variations inside your root `.env.example`.
 
-> 💡 The Documentation Agent uses `date +"%Y%m%d-%H%M"` internally via Bash to auto-generate the accurate timestamp — no manual input needed.
+> 💡 The Documentation Agent uses `date +"%Y%m%d-%H%M"` internally via Bash (with a workspace fallback scan) to auto-generate the accurate timestamp — no manual input needed.
 
 ---
 

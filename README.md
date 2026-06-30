@@ -12,7 +12,7 @@ By separating file modification from command execution, this framework eliminate
 | IDE | Folder | Invocation Style | Status |
 | :--- | :--- | :--- | :--- |
 | 🪐 **Antigravity IDE** | [`antigravity/`](./antigravity/) | `/Planning Agent "..."` slash commands | ✅ Tested |
-| 🐙 **GitHub Copilot** | [`github-copilot/`](./github-copilot/) | `@Planning Agent "..."` in Copilot Chat | ⚠️ Untested |
+| 🐙 **GitHub Copilot** | [`github-copilot/`](./github-copilot/) | `@Planning Agent "..."` in Copilot Chat | 🟡 Testing |
 | 🟣 **Claude Code** | [`claude-code/`](./claude-code/) | `/planning-agent "..."` slash commands in terminal | ⚠️ Untested |
 
 Each folder is a self-contained implementation of the same pipeline, adapted to the native agent format of its respective platform.
@@ -73,17 +73,17 @@ flowchart TD
 
 ## 🔄 Platform Comparison
 
-| Feature | 🪐 Antigravity | 🐙 GitHub Copilot ⚠️ | 🟣 Claude Code ⚠️ |
+| Feature | 🪐 Antigravity | 🐙 GitHub Copilot | 🟣 Claude Code |
 | :--- | :--- | :--- | :--- |
-| **Status** | ✅ Tested | ⚠️ Untested | ⚠️ Untested |
+| **Status** | ✅ Tested | 🟡 Testing | ⚠️ Untested |
 | **Agent format** | `SKILL.md` with YAML frontmatter | `.agent.md` with YAML frontmatter | `.md` slash commands |
 | **Invocation** | `/Discussion Agent topic: "..."` | `@Discussion Agent topic: "..."` | `/discussion-agent "..."` |
 | **File location** | `.agents/workflows/` | `github-copilot/` | `.claude/commands/` |
 | **Bash access** | ❌ Sandboxed | ❌ None | ✅ Read-only only |
-| **Auto timestamp** | ❌ Manual | ❌ Manual | ✅ Via `date` Bash command |
+| **Auto timestamp** | ✅ Context & Scan | ✅ Context & Scan | ✅ Bash & Scan |
 | **Tool restriction** | Via `tools:` frontmatter | Via `# tools:` frontmatter (commented) | Via `allowed-tools:` frontmatter |
 
-> ⚠️ **Note:** The **GitHub Copilot** and **Claude Code** implementations have been authored following each platform's documented agent format but have **not yet been tested in a live project**. The agent prompts are structurally complete and ready to use — feedback and real-world validation are welcome.
+> **Note:** The Antigravity IDE implementation is fully tested, and the GitHub Copilot implementation is currently in testing. The Claude Code agent prompts are structurally complete but remain untested in a live project.
 
 ---
 
